@@ -85,6 +85,7 @@ public class QuerydslQTypeTests {
             .select(qItem)
             .from(qItem)
             .where(qItem.name.eq("itemA"))
+            // 하나만 조회
             .fetchOne();
 
 //    import static org.junit.jupiter.api.Assertions.assertEquals;
