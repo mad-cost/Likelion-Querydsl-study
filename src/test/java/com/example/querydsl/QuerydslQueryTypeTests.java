@@ -190,13 +190,13 @@ public class QuerydslQueryTypeTests {
     item.price.in(5000, 6000, 7000, 8000);
 
     // like 절 사용하기
-      // item_
-    item.name.like("item_");
-      // %item%
+      // like는 SQL문법 그대로 사용
+    item.name.like("%item_");
+      // %item% / 앞 뒤로 %
     item.name.contains("item");
-      // item%
+      // item% / 뒤에 %
     item.name.startsWith("item");
-      // %A
+      // %A / 앞에 %
     item.name.endsWith("A");
 
     // 시간 관련 조건
@@ -210,15 +210,57 @@ public class QuerydslQueryTypeTests {
             // item.(속성).(조건)
             .where(
                     item.name.isNotNull(), // name이 null이 아니고
-                    item.price.lt(8000), // 8000원 보다 싼
-                    item.stock.gt(20) // 재고가 20개 이상 남은 물품 가져오기
+                    item.price.lt(8000), // 8000원 미만
+                    item.stock.gt(20) // 재고가 20개 초과
             )
             .fetch();
     for (Item found : foundItems){
-      System.out.printf("%s: %d%n", found.getName(), found.getPrice());
+      System.out.printf("%s: %d(%d)%n", found.getName(), found.getPrice(), found.getStock());
+    }
+
+    System.out.println("--------------");
+//    게임속 아이템 경매장에서 아이템 검색
+    List<Item> foundGameItems = queryFactory
+            .selectFrom(item)
+            // item.(속성).(조건)
+            .where(
+                    item.name.contains("item") // item이 들어가는 제품 가져오기
+            )
+            .orderBy(item.price.asc()) // 가격순으로 정렬
+            .fetch();
+    for (Item found : foundGameItems){
+      System.out.printf("%s: %d(%d)%n", found.getName(), found.getPrice(), found.getStock());
     }
 
   }
+
+  @Test
+  public void andOr() {
+    List<Item> foundItems = queryFactory
+            .selectFrom(item)
+            .fetch();
+
+    for (Item found : foundItems){
+      // found: Item엔티티에 toString메서드 사용
+      System.out.println(found);
+    }
+
+    foundItems = queryFactory
+            .selectFrom(item)
+            // 가격이 6000원 이하 또는 9000 이상,
+            .where(
+                    item.price.loe(6000).or(item.price.goe(10000))
+                    )
+            .fetch();
+
+    for (Item found : foundItems){
+      // found: Item엔티티에 toString메서드 사용
+      System.out.println(found);
+    }
+
+
+  }
+
 
 
 
