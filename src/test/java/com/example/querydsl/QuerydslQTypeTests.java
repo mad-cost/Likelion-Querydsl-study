@@ -84,6 +84,7 @@ public class QuerydslQTypeTests {
     Item found = queryFactory
             .select(qItem)
             .from(qItem)
+            // qItem.name이 itemA랑 같다면
             .where(qItem.name.eq("itemA"))
             // 하나만 조회
             .fetchOne();

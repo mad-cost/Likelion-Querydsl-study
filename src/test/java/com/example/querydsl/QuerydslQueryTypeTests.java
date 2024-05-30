@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.example.querydsl.entity.QItem.item;
@@ -163,6 +164,63 @@ public class QuerydslQueryTypeTests {
     }
 
   }
+
+  @Test
+  // WHERE 절 사용해보기
+  public void where(){
+//    @@ 조건 만들기 @@
+      // equals
+    item.name.eq("itemA");
+      // not equals
+    item.name.ne("itemB");
+      // .not : 해당하는 조건의 반대이다
+    item.name.eq("itemC").not();
+      // is null
+    item.name.isNull();
+      // is not null
+    item.name.isNotNull();
+      // < (less than), <= (less or equals), >= (greater than equals), > (greater than)
+    item.price.lt(6000); // <
+    item.price.loe(6000); // <=
+    item.price.goe(8000); // >=
+    item.price.gt(7000); // >
+      // 5000이상 10000이하
+    item.price.between(5000, 10000);
+      // 해당하는 값 가져오기
+    item.price.in(5000, 6000, 7000, 8000);
+
+    // like 절 사용하기
+      // item_
+    item.name.like("item_");
+      // %item%
+    item.name.contains("item");
+      // item%
+    item.name.startsWith("item");
+      // %A
+    item.name.endsWith("A");
+
+    // 시간 관련 조건
+      // 지금으로부터 5일 전 보다 이후
+    item.createdAt.after(LocalDateTime.now().minusDays(5));
+      // 지금으로부터 5일 전 보다 이전
+    item.createdAt.before(LocalDateTime.now().minusDays(5));
+
+    List<Item> foundItems = queryFactory
+            .selectFrom(item)
+            // item.(속성).(조건)
+            .where(
+                    item.name.isNotNull(), // name이 null이 아니고
+                    item.price.lt(8000), // 8000원 보다 싼
+                    item.stock.gt(20) // 재고가 20개 이상 남은 물품 가져오기
+            )
+            .fetch();
+    for (Item found : foundItems){
+      System.out.printf("%s: %d%n", found.getName(), found.getPrice());
+    }
+
+  }
+
+
 
 }
 
