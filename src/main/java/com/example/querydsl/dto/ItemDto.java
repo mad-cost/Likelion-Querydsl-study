@@ -6,12 +6,15 @@ import lombok.*;
 @Getter
 @Setter
 @NoArgsConstructor
+//@AllArgsConstructor
 @ToString
 public class ItemDto {
     private String name;
     private Integer cost;
     private Integer stock;
 
+
+    //@AllArgsConstructor
     public ItemDto(
             String name,
             Integer cost,
