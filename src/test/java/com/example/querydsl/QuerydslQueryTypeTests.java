@@ -179,11 +179,11 @@ public class QuerydslQueryTypeTests {
     item.name.isNull();
       // is not null
     item.name.isNotNull();
-      // < (less than), <= (less or equals), >= (greater than equals), > (greater than)
-    item.price.lt(6000); // <
-    item.price.loe(6000); // <=
-    item.price.goe(8000); // >=
-    item.price.gt(7000); // >
+      // < (less than), <= (less or equals), >= (greater or equals), > (greater than)
+    item.price.lt(6000); // < 6000
+    item.price.loe(6000); // <= 6000
+    item.price.goe(8000); // >= 8000
+    item.price.gt(7000); // > 7000
       // 5000이상 10000이하
     item.price.between(5000, 10000);
       // 해당하는 값 가져오기

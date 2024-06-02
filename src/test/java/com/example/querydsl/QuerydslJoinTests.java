@@ -144,7 +144,7 @@ public class QuerydslJoinTests {
 
   @Test
 //  집계함수
-  // 집계함수란? = 여러 행으로부터 하나의 결괏값을 반환하는 함수이다
+  // 집계함수란? = 여러 행으로부터 하나의 결과값을 반환하는 함수이다
   // SELECT COUNT(item), MAX(item.price) FROM Item item;
   public void aggregate(){
     // Tuple은 조회했던 QType의 속성 및 집계를 기준으로 데이터 회수 가능
