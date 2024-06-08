@@ -165,7 +165,6 @@ public class QuerydslJoinTests {
     assertEquals(175, result.get(item.stock.sum()));
   }
 
-
 }
 
 

@@ -123,7 +123,7 @@ DTO접근 방법 3가지 <br>
     }
 }
   ```
-  사진
+  <img src="img/num1.png">
 
   - #### @QueryProjection 사용하기
   ```java
