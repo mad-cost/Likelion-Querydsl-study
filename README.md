@@ -13,7 +13,9 @@ QueryDSL이란 SQL, JPQL 등을 코드로 작성할 수 있도록 해주는 빌�
 1. JPA_APT가 @Enttiy 와 같은 특정 어노테이션을 찾고 해당 클래스를 분석해서 QClass를 만들어 준다
 2. 엔티티 클래스의 메타 정보를 담고 있는 클래스로, Querydsl은 타입 안정성(Type safe)을 보장하면서 쿼리를 작성할 수 있게 된다
 - QClass 생성 방법
-- 사진
+ 1.  `build.gradle`에 Querydsl 의존성 추가 + build해주기
+ 2.  만들어 놓은 Entity 클래스를 바탕으로 `build/main`에 QClass가 생성된 것을 볼 수 있다
+- <img src="img/num2.png">
  <hr>
  
 #### 프로젝션(Projection)
@@ -22,7 +24,7 @@ QueryDSL이란 SQL, JPQL 등을 코드로 작성할 수 있도록 해주는 빌�
 <hr>
 
 #### 튜플(Tuple) 사용하기
-1. Querydsl에서 제공하는 Tuple 타입은 repository 계층까지만 사용 권장한다
+1. Querydsl에서 제공하는 Tuple 타입은 `repository 계층까지만 사용을 권장`한다
 2. Service나 Controller계층에 이용시 DTO사용
 3. `com.querydsl.core.Tuple`을 사용
 ```
@@ -140,7 +142,7 @@ DTO접근 방법 3가지 <br>
             .fetch();
     itemDtoProjList.forEach(System.out::println);
   ```
+<hr>
 
-
-## 간략히 보기 👇
-[여기를 눌러 주세요](https://github.com/mad-cost/Community_Board/blob/master/md/describe.markdown "Click")
+## 환경 변수 설정 방법 👇
+[여기를 눌러 주세요](https://github.com/mad-cost/Querydsl-prac/blob/master/md/querydsl.md "Click")
